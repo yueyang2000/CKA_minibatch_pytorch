@@ -100,9 +100,12 @@ class CKA_Minibatch_Grid(Module):
     def update(self, x1: Sequence[Tensor], x2: Sequence[Tensor], gram: bool = False) -> None:
         assert len(x1) == self.dim1, 'Grid dim0 mismatch'
         assert len(x2) == self.dim2, 'Grid dim1 mismatch'
+        if not gram:
+            x1 = [torch.matmul(x, x.transpose(0, 1)) for x in x1]
+            x2 = [torch.matmul(x, x.transpose(0, 1)) for x in x2]
         for i in range(self.dim1):
             for j in range(self.dim2):
-                self.cka_loggers[i][j].update(x1[i], x2[j], gram=gram)
+                self.cka_loggers[i][j].update(x1[i], x2[j], gram=True)
 
     def compute(self) -> Tensor:
         result = torch.zeros(self.dim1, self.dim2)
