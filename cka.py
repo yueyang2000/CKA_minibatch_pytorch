@@ -1,4 +1,4 @@
-from typing import Iterable, Tuple
+from typing import Sequence
 from torch import Tensor
 import torch
 from torch.nn import Module
@@ -85,7 +85,8 @@ class CKA_Minibatch_Grid(Module):
     '''
     Compute CKA for a 2D grid of features
     '''
-    def __init__(self, dim1, dim2):
+
+    def __init__(self, dim1: int, dim2: int):
         super().__init__()
         self.cka_loggers = [[CKA_Minibatch() for _ in range(dim2)] for _ in range(dim1)]
         self.dim1 = dim1
@@ -96,14 +97,14 @@ class CKA_Minibatch_Grid(Module):
             for j in range(self.dim2):
                 self.cka_loggers[i][j].reset()
 
-    def update(self, x1, x2, gram=False):
+    def update(self, x1: Sequence[Tensor], x2: Sequence[Tensor], gram: bool = False) -> None:
         assert len(x1) == self.dim1, 'Grid dim0 mismatch'
         assert len(x2) == self.dim2, 'Grid dim1 mismatch'
         for i in range(self.dim1):
             for j in range(self.dim2):
                 self.cka_loggers[i][j].update(x1[i], x2[j], gram=gram)
 
-    def compute(self):
+    def compute(self) -> Tensor:
         result = torch.zeros(self.dim1, self.dim2)
         for i in range(self.dim1):
             for j in range(self.dim2):

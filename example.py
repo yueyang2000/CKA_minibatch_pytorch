@@ -27,11 +27,12 @@ def forward_features(model, x):
     return x1.view(_b, -1), x2.view(_b, -1), x3.view(_b, -1), x4.view(_b, -1)
 
 
+
 def main():
     DATA_ROOT = '/home/data/ImageNet/val'
     batch_size = 128
     dataset_size = 1280
-    num_sweep = 1
+    num_sweep = 10
     num_features = 4
 
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -39,11 +40,11 @@ def main():
     torch.random.manual_seed(0)
     perms = [torch.randperm(dataset_size) for _ in range(num_sweep)]
     dataset = datasets.ImageFolder(DATA_ROOT, transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        normalize,
-    ]))
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            normalize,
+        ]))
 
     model = resnet18()
     model.cuda()
@@ -70,7 +71,6 @@ def main():
     plt.imshow(cka_matrix.numpy(), origin='lower', cmap='magma')
     plt.colorbar()
     plt.savefig('r18_cka.png')
-
 
 if __name__ == '__main__':
     main()
