@@ -69,6 +69,7 @@ def main():
     plt.xticks([0, 1, 2, 3], ['Layer 1', 'Layer 2', 'Layer 3', 'Layer 4'])
     plt.yticks([0, 1, 2, 3], ['Layer 1', 'Layer 2', 'Layer 3', 'Layer 4'])
     plt.imshow(cka_matrix.numpy(), origin='lower', cmap='magma')
+    plt.clim(0, 1)
     plt.colorbar()
     plt.savefig('r18_cka.png')
 
