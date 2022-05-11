@@ -46,7 +46,7 @@ def main():
             normalize,
         ]))
 
-    model = resnet18()
+    model = resnet18(pretrained=True)
     model.cuda()
     model.eval()
     cka_logger = CKA_Minibatch_Grid(num_features, num_features)
