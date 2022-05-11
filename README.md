@@ -10,7 +10,7 @@ Pytorch implementation of Centered Kernel Alignment (CKA) and its minibatch vers
 
 A simple example comparing layer outputs of resnet18 can be found in `example.py`.
 
-<img src="img/r18_cka.png" alt="r18_cka" style="zoom: 67%;" />
+<img src="img/r18_cka_new.png" alt="r18_cka" style="zoom: 67%;" />
 
 
 

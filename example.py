@@ -71,7 +71,7 @@ def main():
     plt.imshow(cka_matrix.numpy(), origin='lower', cmap='magma')
     plt.clim(0, 1)
     plt.colorbar()
-    plt.savefig('r18_cka.png')
+    plt.savefig('r18_cka_new.png')
 
 if __name__ == '__main__':
     main()
